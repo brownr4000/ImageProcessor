@@ -29,8 +29,15 @@ using System.Threading.Tasks;
 
 namespace ImageProcessor
 {
+    /// <summary>
+    /// The Startup class
+    /// </summary>
     public class Startup
     {
+        /// <summary>
+        /// The Startup constructor
+        /// </summary>
+        /// <param name="configuration">The configuration being used</param>
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
