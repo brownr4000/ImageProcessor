@@ -9,13 +9,25 @@ using System.Threading.Tasks;
 
 namespace ImageProcessor
 {
+    /// <summary>
+    /// The Program class for ImageProcessor
+    /// </summary>
     public class Program
     {
+        /// <summary>
+        /// The Main method
+        /// </summary>
+        /// <param name="args"></param>
         public static void Main(string[] args)
         {
             CreateHostBuilder(args).Build().Run();
         }
 
+        /// <summary>
+        /// The CreateHostBuilder method
+        /// </summary>
+        /// <param name="args"></param>
+        /// <returns></returns>
         public static IHostBuilder CreateHostBuilder(string[] args) =>
             Host.CreateDefaultBuilder(args)
                 .ConfigureWebHostDefaults(webBuilder =>
