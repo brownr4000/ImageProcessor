@@ -21,7 +21,26 @@ using SixLabors.ImageSharp;
 
 namespace ImageProcessor.Controllers
 {
+    /// <summary>
+    /// The OperatorController class
+    /// </summary>
     public class OperatorController
     {
+        /// <summary>
+        /// The OperatorController constructor
+        /// </summary>
+        public OperatorController()
+        {
+
+        }
+
+        /// <summary>
+        /// The list of strings to hold the image manipulation commands
+        /// </summary>
+        public List<string> command { get; set; }
+
+
+
     }
+
 }
