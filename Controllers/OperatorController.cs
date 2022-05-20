@@ -39,8 +39,57 @@ namespace ImageProcessor.Controllers
         /// </summary>
         public List<string> command { get; set; }
 
+        private Image image;
 
+        private string parseCommand()
+        {
+            return null;
+        }
 
+        public Image performHorizFlip(Image image)
+        {
+            return null;
+        }
+
+        public Image performVertFlip(Image image)
+        {
+            return null;
+        }
+
+        public Image rotate(int value, Image image)
+        {
+            return null;
+        }
+
+        public Image rotate(string direction, Image image)
+        {
+            return null;
+        }
+
+        public Image convertGrayscale(Image image)
+        {
+            return null;
+        }
+
+        public Image convertGrayscale(int value, Image image)
+        {
+            return null;
+        }
+
+        public Image saturate(Image image)
+        {
+            return null;
+        }
+
+        public Image desaturate(Image image)
+        {
+            return null;
+        }
+
+        public Image resize(float x, float y, Image image)
+        {
+            return null;
+        }
     }
 
 }
