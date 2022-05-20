@@ -24,4 +24,7 @@ namespace ImageProcessor.Models
     public class OperatorModel
     {
     }
+
+    // This should hold the commmand list and image!
+    // This is the operator object!
 }
