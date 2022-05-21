@@ -27,4 +27,11 @@ namespace ImageProcessor.Models
 
     // This should hold the commmand list and image!
     // This is the operator object!
+
+    /// <summary>
+    /// The list of strings to hold the image manipulation commands
+    /// </summary>
+    public List<string> command { get; set; }
+
+    private Image image;
 }
