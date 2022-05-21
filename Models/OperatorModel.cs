@@ -43,6 +43,6 @@ namespace ImageProcessor.Models
         /// <summary>
         /// The Image to be manipulated
         /// </summary>
-        private Image image { get; set; }
+        public Image image { get; set; }
     }
 }
