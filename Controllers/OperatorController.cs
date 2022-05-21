@@ -47,18 +47,22 @@ namespace ImageProcessor.Controllers
                 switch (action.FirstOrDefault())
                 {
                     case "flip":
+                        performFlip(image.image, action[1]);
                         break;
 
                     case "rotate":
                         break;
                     
                     case "convert":
+                        convertGrayscale(image.image);
                         break;
                     
                     case "saturate":
+                        saturate(image.image);
                         break;
                     
                     case "desatruate":
+                        desaturate(image.image);
                         break;
 
                     case "resize":
@@ -70,15 +74,11 @@ namespace ImageProcessor.Controllers
             return null;
         }
 
-        public Image performHorizFlip(Image image)
+        public Image performFlip(Image image, string dir)
         {
             return null;
         }
 
-        public Image performVertFlip(Image image)
-        {
-            return null;
-        }
 
         public Image rotate(int value, Image image)
         {
