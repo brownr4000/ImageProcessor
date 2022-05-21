@@ -33,6 +33,8 @@ namespace ImageProcessor.Controllers
         public OperatorController(OperatorModel picture)
         {
             image = picture;
+
+            parseCommand();
         }
 
         // The OperatorModel image for the OperatorController object
