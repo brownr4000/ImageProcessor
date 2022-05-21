@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using SixLabors.ImageSharp;
+using ImageProcessor.Models;
 
 // AUTHOR:      Bob Brown rbrown3
 // PROGRAM:     ImageProcessor API
@@ -34,8 +35,22 @@ namespace ImageProcessor.Controllers
 
         }
 
+        public OperatorController(OperatorModel picture)
+        {
+            image = picture;
+        }
+
+        // The OperatorModel image for the OperatorController object
+        private OperatorModel image;
+
         private string parseCommand()
         {
+            foreach (string operation in image.command)
+            {
+                switch (operation)
+
+            }
+
             return null;
         }
 
