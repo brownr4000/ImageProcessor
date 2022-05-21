@@ -14,11 +14,6 @@ using ImageProcessor.Models;
 // AUTHOR:      Bob Brown rbrown3
 // PROGRAM:     ImageProcessor API
 // DATE:        2022-05-18
-// PURPOSE:     
-// INPUT:       
-// PROCESS:     
-// OUTPUT:      
-//
 
 namespace ImageProcessor.Controllers
 {
@@ -47,8 +42,29 @@ namespace ImageProcessor.Controllers
         {
             foreach (string operation in image.command)
             {
-                switch (operation)
+                var action = operation.Split(" ");
 
+                switch (action.FirstOrDefault())
+                {
+                    case "flip":
+                        break;
+
+                    case "rotate":
+                        break;
+                    
+                    case "convert":
+                        break;
+                    
+                    case "saturate":
+                        break;
+                    
+                    case "desatruate":
+                        break;
+
+                    case "resize":
+                        break;
+
+                }
             }
 
             return null;
