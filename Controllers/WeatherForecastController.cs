@@ -35,5 +35,18 @@ namespace ImageProcessor.Controllers
             })
             .ToArray();
         }
+
+        // POST api/<ValuesController>
+        [HttpPost]
+        public IEnumerable<WeatherForecast> Post([FromBody] int value)
+        {
+            return Enumerable.Range(1, 1).Select(index => new WeatherForecast
+            {
+                Date = DateTime.Now.AddDays(index),
+                TemperatureC = value,
+                Summary = Summaries[value % 10]
+            })
+            .ToArray();
+        }
     }
 }
