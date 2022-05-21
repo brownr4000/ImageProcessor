@@ -10,6 +10,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using SixLabors.ImageSharp;
 using ImageProcessor.Models;
+using ImageProcessor.Services;
 
 // AUTHOR:      Bob Brown rbrown3
 // PROGRAM:     ImageProcessor API
@@ -32,6 +33,8 @@ namespace ImageProcessor.Controllers
 
         public OperatorController(OperatorModel picture)
         {
+            process = new ProcessorService();
+
             image = picture;
 
             parseCommand();
@@ -39,6 +42,8 @@ namespace ImageProcessor.Controllers
 
         // The OperatorModel image for the OperatorController object
         private OperatorModel image;
+
+        private ProcessorService process;
 
         private string parseCommand()
         {
@@ -78,8 +83,7 @@ namespace ImageProcessor.Controllers
 
         public Image performFlip(string dir)
         {
-
-            return null;
+            return process.performFlip(dir);
         }
 
 
