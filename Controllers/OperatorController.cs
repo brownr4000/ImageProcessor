@@ -47,7 +47,7 @@ namespace ImageProcessor.Controllers
                 switch (action.FirstOrDefault())
                 {
                     case "flip":
-                        performFlip(image.image, action[1]);
+                        performFlip(action[1]);
                         break;
 
                     case "rotate":
@@ -74,8 +74,9 @@ namespace ImageProcessor.Controllers
             return null;
         }
 
-        public Image performFlip(Image image, string dir)
+        public Image performFlip(string dir)
         {
+
             return null;
         }
 
