@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using ImageProcessor.Services;
 using SixLabors.ImageSharp;
 
 // AUTHOR:      Bob Brown rbrown3
@@ -33,7 +34,11 @@ namespace ImageProcessor.Models
             command = commands;
 
             image = picture;
+
+            process = new ProcessorService();
         }
+
+        private ProcessorService process;
 
         /// <summary>
         /// The list of strings to hold the image manipulation commands
@@ -44,5 +49,82 @@ namespace ImageProcessor.Models
         /// The Image to be manipulated
         /// </summary>
         public Image image { get; set; }
+
+        private string parseCommand()
+        {
+            foreach (string operation in command)
+            {
+                var action = operation.Split(" ");
+
+                switch (action.FirstOrDefault())
+                {
+                    case "flip":
+                        //performFlip(action[1]);
+                        break;
+
+                    case "rotate":
+                        break;
+
+                    case "convert":
+                        //convertGrayscale(image.image);
+                        break;
+
+                    case "saturate":
+                        //saturate(image.image);
+                        break;
+
+                    case "desatruate":
+                        //desaturate(image.image);
+                        break;
+
+                    case "resize":
+                        break;
+
+                }
+            }
+
+            return null;
+        }
+
+        public Image performFlip(string dir)
+        {
+            return process.performFlip(dir);
+        }
+
+
+        public Image rotate(int value, Image image)
+        {
+            return null;
+        }
+
+        public Image rotate(string direction, Image image)
+        {
+            return null;
+        }
+
+        public Image convertGrayscale(Image image)
+        {
+            return null;
+        }
+
+        public Image convertGrayscale(int value, Image image)
+        {
+            return null;
+        }
+
+        public Image saturate(Image image)
+        {
+            return null;
+        }
+
+        public Image desaturate(Image image)
+        {
+            return null;
+        }
+
+        public Image resize(float x, float y, Image image)
+        {
+            return null;
+        }
     }
 }
