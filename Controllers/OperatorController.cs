@@ -34,13 +34,6 @@ namespace ImageProcessor.Controllers
 
         }
 
-        /// <summary>
-        /// The list of strings to hold the image manipulation commands
-        /// </summary>
-        public List<string> command { get; set; }
-
-        private Image image;
-
         private string parseCommand()
         {
             return null;
