@@ -13,11 +13,6 @@ using System.Threading.Tasks;
 // AUTHOR:      Bob Brown rbrown3
 // PROGRAM:     ImageProcessor API
 // DATE:        2022-05-18
-// PURPOSE:     
-// INPUT:       
-// PROCESS:     
-// OUTPUT:      
-//
 
 namespace ImageProcessor.Controllers
 {
@@ -25,6 +20,11 @@ namespace ImageProcessor.Controllers
     [ApiController]
     public class RequestController : ControllerBase
     {
+        public RequestController()
+        {
+
+        }
+
         // GET: api/<ValuesController>
         [HttpGet]
         public IEnumerable<string> Get()
