@@ -4,7 +4,10 @@
  * This is free and unencumbered software release into the public domain.
  */
 
+using ImageProcessor.Models;
+using ImageProcessor.Services;
 using Microsoft.AspNetCore.Mvc;
+using SixLabors.ImageSharp;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,6 +26,97 @@ namespace ImageProcessor.Controllers
         public RequestController()
         {
 
+        }
+
+        public RequestController(OperatorModel picture)
+        {
+            process = new ProcessorService();
+
+            image = picture;
+
+            parseCommand();
+        }
+
+        // The OperatorModel image for the OperatorController object
+        private OperatorModel image;
+
+        private ProcessorService process;
+
+        private string parseCommand()
+        {
+            foreach (string operation in image.command)
+            {
+                var action = operation.Split(" ");
+
+                switch (action.FirstOrDefault())
+                {
+                    case "flip":
+                        performFlip(action[1]);
+                        break;
+
+                    case "rotate":
+                        break;
+
+                    case "convert":
+                        convertGrayscale(image.image);
+                        break;
+
+                    case "saturate":
+                        saturate(image.image);
+                        break;
+
+                    case "desatruate":
+                        desaturate(image.image);
+                        break;
+
+                    case "resize":
+                        break;
+
+                }
+            }
+
+            return null;
+        }
+
+        public Image performFlip(string dir)
+        {
+            return process.performFlip(dir);
+        }
+
+
+        public Image rotate(int value, Image image)
+        {
+            return null;
+        }
+
+        public Image rotate(string direction, Image image)
+        {
+            return null;
+        }
+
+        public Image convertGrayscale(Image image)
+        {
+            return null;
+        }
+
+        public Image convertGrayscale(int value, Image image)
+        {
+            return null;
+        }
+
+        public Image saturate(Image image)
+        {
+            return null;
+        }
+
+        public Image desaturate(Image image)
+        {
+            return null;
+        }
+
+        public Image resize(float x, float y, Image image)
+        {
+            return null;
         }
 
         // GET: api/<ValuesController>
