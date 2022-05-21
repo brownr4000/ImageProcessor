@@ -53,6 +53,11 @@ namespace ImageProcessor.Services
             return image;
         }
 
+        /// <summary>
+        /// The rotate method rotates the image based on a direction string
+        /// </summary>
+        /// <param name="dir">The direction to rotate, assuming CW or CCW</param>
+        /// <returns>The mutated image</returns>
         public Image rotate(string dir)
         {
             RotateMode tap = RotateMode.Rotate90;
@@ -67,6 +72,10 @@ namespace ImageProcessor.Services
             return image;
         }
 
+        /// <summary>
+        /// The convertGrayscale method converts the image to grayscale
+        /// </summary>
+        /// <returns>The mutated image</returns>
         public Image convertGrayscale()
         {
             image.Mutate(x => x.Grayscale());
@@ -76,14 +85,52 @@ namespace ImageProcessor.Services
             return image;
         }
 
-        public Image convertGrayscale(float thing)
+        /// <summary>
+        /// The convertGrayscale method converts the image to grayscale based
+        /// on the given floating point number
+        /// </summary>
+        /// <param name="value">The value of the grayscale to apply</param>
+        /// <returns>The mutated image</returns>
+        public Image convertGrayscale(float value)
         {
-            image.Mutate(x => x.Grayscale(thing));
+            image.Mutate(x => x.Grayscale(value));
 
             image.Save("output/fb.png"); // Automatic encoder selected based on extension.
 
             return image;
         }
+
+        /// <summary>
+        /// The saturate method applies saturation to the image
+        /// </summary>
+        public void saturate()
+        {
+            image.Mutate(x => x.Saturate(0.5f));
+        }
+
+        /// <summary>
+        /// The desaturate method removes saturation from the image
+        /// </summary>
+        public void desaturate()
+        {
+            image.Mutate(x => x.Saturate(0));
+        }
+
+        public void resize(float x, float y)
+        {
+
+        }
+
+        public void resize(float percent)
+        {
+
+        }
+
+        public void generateThumb()
+        {
+
+        }
+
 
     }
 }
