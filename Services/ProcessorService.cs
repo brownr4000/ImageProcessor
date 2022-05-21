@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using SixLabors.ImageSharp;
-
 using SixLabors.ImageSharp.Processing;
 using ImageProcessor.Models;
 
