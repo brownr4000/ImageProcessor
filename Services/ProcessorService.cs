@@ -116,19 +116,42 @@ namespace ImageProcessor.Services
             image.Mutate(x => x.Saturate(0));
         }
 
-        public void resize(float x, float y)
+        /// <summary>
+        /// The resize method changes the size of the image based on the
+        /// given x and y values
+        /// </summary>
+        /// <param name="x">The width value to change</param>
+        /// <param name="y">The height value to change</param>
+        public void resize(int x, int y)
         {
+            int xValue = image.Width + x;
+            int yValue = image.Height + y;
 
+            image.Mutate(x => x.Resize(xValue, yValue));
         }
 
+        /// <summary>
+        /// The resize method changes the size of an image based on the
+        /// given percent value
+        /// </summary>
+        /// <param name="percent"></param>
         public void resize(float percent)
         {
+            var xValue = image.Width * percent;
+            var yValue = image.Height * percent;
 
+            image.Mutate(x => x.Resize((int)xValue, (int)yValue));
         }
 
+        /// <summary>
+        /// The generateThumb method generates a low quality thumbnail for the image
+        /// </summary>
         public void generateThumb()
         {
+            int xValue = image.Width  / 2;
+            var yValue = image.Height / 2;
 
+            image.Mutate(x => x.Resize(xValue, yValue, KnownResamplers.NearestNeighbor));
         }
 
 
