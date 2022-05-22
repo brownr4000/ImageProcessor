@@ -36,14 +36,6 @@ namespace ImageProcessor.Controllers
             _logger = logger;
         }
 
-        public RequestController(ImageModel picture)
-        {
-            process = new ProcessorService();
-
-            image = picture;
-
-        }
-
         // GET: api/<ValuesController>
         [HttpGet]
         public IEnumerable<string> Get()
@@ -60,20 +52,14 @@ namespace ImageProcessor.Controllers
 
         // POST api/<ValuesController>
         [HttpPost]
-        public void Post([FromBody] string value)
+        public List<string> Post([FromBody] string value)
         {
+            List<string> requests = value.Split(':').ToList();
+
+            ImageModel image = new ImageModel(requests);
+
+            return image.Command;
         }
 
-        // PUT api/<ValuesController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
-        {
-        }
-
-        // DELETE api/<ValuesController>/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
-        }
     }
 }
