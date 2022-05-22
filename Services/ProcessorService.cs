@@ -19,6 +19,43 @@ namespace ImageProcessor.Services
 
         private Image image;
 
+        private string parseCommand()
+        {
+            foreach (string operation in picture.Command)
+            {
+                var action = operation.Split(" ");
+
+                switch (action.FirstOrDefault())
+                {
+                    case "flip":
+                        performFlip(action[1]);
+                        break;
+
+                    case "rotate":
+                        break;
+
+                    case "convert":
+                        convertGrayscale();
+                        break;
+
+                    case "saturate":
+                        //saturate(image.image);
+                        break;
+
+                    case "desatruate":
+                        //desaturate(image.image);
+                        break;
+
+                    case "resize":
+                        break;
+
+                }
+            }
+
+            return null;
+        }
+
+
         /// <summary>
         /// The performFlip method flips the image horizontally or vertically
         /// based on the string directon
