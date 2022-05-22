@@ -51,7 +51,7 @@ namespace ImageProcessor.Models
         /// <summary>
         /// The list of strings to hold the image manipulation commands
         /// </summary>
-        public List<string> Command { get; set; } = new List<string>{ "empty commands" };
+        public List<string> Command { get; set; } = new List<string>{ "empty commands", "empty commands" };
 
         /// <summary>
         /// The Image to be manipulated
