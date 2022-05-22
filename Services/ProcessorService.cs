@@ -15,9 +15,21 @@ namespace ImageProcessor.Services
 
         }
 
+        public ProcessorService(ImageModel image)
+        {
+            picture = image;
+
+            negative = picture.Image;
+        }
+
         private ImageModel picture;
 
-        private Image image;
+        private Image negative;
+
+        private void SaveOutput()
+        {
+            negative.SaveAsJpeg("output/" + picture.Id + ".jpg");
+        }
 
         private string parseCommand()
         {
@@ -61,65 +73,53 @@ namespace ImageProcessor.Services
         /// based on the string directon
         /// </summary>
         /// <param name="dir">The direction to flip the image</param>
-        /// <returns>The mutated image</returns>
-        public Image performFlip(string dir)
+        public void performFlip(string dir)
         {
             FlipMode direction = FlipMode.Vertical;
 
             if (dir.ToLower().StartsWith("h"))
                 direction = FlipMode.Horizontal;
 
-            image.Mutate(x => x.Flip(direction));
+            negative.Mutate(x => x.Flip(direction));
 
-            image.Save("output/fb.png"); // Automatic encoder selected based on extension.
-
-            return image;
+            SaveOutput();
         }
 
         /// <summary>
         /// The rotate method rotates the image based on a value in degrees
         /// </summary>
         /// <param name="value">A floating point value</param>
-        /// <returns>The mutated image</returns>
-        public Image rotate(float value)
+        public void rotate(float value)
         {
-            image.Mutate(x => x.Rotate(value));
+            negative.Mutate(x => x.Rotate(value));
 
-            image.Save("output/fb.png"); // Automatic encoder selected based on extension.
-
-            return image;
+            SaveOutput();
         }
 
         /// <summary>
         /// The rotate method rotates the image based on a direction string
         /// </summary>
         /// <param name="dir">The direction to rotate, assuming CW or CCW</param>
-        /// <returns>The mutated image</returns>
-        public Image rotate(string dir)
+        public void rotate(string dir)
         {
             RotateMode tap = RotateMode.Rotate90;
 
             if (dir.ToLower() == "ccw")
                 tap = RotateMode.Rotate270;
 
-            image.Mutate(x => x.Rotate(tap));
+            negative.Mutate(x => x.Rotate(tap));
 
-            image.Save("output/fb.png"); // Automatic encoder selected based on extension.
-
-            return image;
+            SaveOutput();
         }
 
         /// <summary>
         /// The convertGrayscale method converts the image to grayscale
         /// </summary>
-        /// <returns>The mutated image</returns>
-        public Image convertGrayscale()
+        public void convertGrayscale()
         {
-            image.Mutate(x => x.Grayscale());
+            negative.Mutate(x => x.Grayscale());
 
-            image.Save("output/fb.png"); // Automatic encoder selected based on extension.
-
-            return image;
+            SaveOutput();
         }
 
         /// <summary>
@@ -128,13 +128,11 @@ namespace ImageProcessor.Services
         /// </summary>
         /// <param name="value">The value of the grayscale to apply</param>
         /// <returns>The mutated image</returns>
-        public Image convertGrayscale(float value)
+        public void convertGrayscale(float value)
         {
-            image.Mutate(x => x.Grayscale(value));
+            negative.Mutate(x => x.Grayscale(value));
 
-            image.Save("output/fb.png"); // Automatic encoder selected based on extension.
-
-            return image;
+            SaveOutput();
         }
 
         /// <summary>
@@ -142,7 +140,9 @@ namespace ImageProcessor.Services
         /// </summary>
         public void saturate()
         {
-            image.Mutate(x => x.Saturate(0.5f));
+            negative.Mutate(x => x.Saturate(0.5f));
+
+            SaveOutput();
         }
 
         /// <summary>
@@ -150,7 +150,9 @@ namespace ImageProcessor.Services
         /// </summary>
         public void desaturate()
         {
-            image.Mutate(x => x.Saturate(0));
+            negative.Mutate(x => x.Saturate(0));
+
+            SaveOutput();
         }
 
         /// <summary>
@@ -161,10 +163,12 @@ namespace ImageProcessor.Services
         /// <param name="y">The height value to change</param>
         public void resize(int x, int y)
         {
-            int xValue = image.Width + x;
-            int yValue = image.Height + y;
+            int xValue = negative.Width + x;
+            int yValue = negative.Height + y;
 
-            image.Mutate(x => x.Resize(xValue, yValue));
+            negative.Mutate(x => x.Resize(xValue, yValue));
+
+            SaveOutput();
         }
 
         /// <summary>
@@ -174,10 +178,12 @@ namespace ImageProcessor.Services
         /// <param name="percent"></param>
         public void resize(float percent)
         {
-            var xValue = image.Width * percent;
-            var yValue = image.Height * percent;
+            var xValue = negative.Width * percent;
+            var yValue = negative.Height * percent;
 
-            image.Mutate(x => x.Resize((int)xValue, (int)yValue));
+            negative.Mutate(x => x.Resize((int)xValue, (int)yValue));
+
+            SaveOutput();
         }
 
         /// <summary>
@@ -185,12 +191,12 @@ namespace ImageProcessor.Services
         /// </summary>
         public void generateThumb()
         {
-            int xValue = image.Width  / 2;
-            var yValue = image.Height / 2;
+            int xValue = negative.Width  / 2;
+            var yValue = negative.Height / 2;
 
-            image.Mutate(x => x.Resize(xValue, yValue, KnownResamplers.NearestNeighbor));
+            negative.Mutate(x => x.Resize(xValue, yValue, KnownResamplers.NearestNeighbor));
+
+            SaveOutput();
         }
-
-
     }
 }
