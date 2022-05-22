@@ -24,7 +24,7 @@ namespace ImageProcessor.Models
         {
             Command = commands;
 
-            Image = Image.Load("input/test.jpg");
+            Image = Image.Load("input/test_image.png");
 
         }
 
