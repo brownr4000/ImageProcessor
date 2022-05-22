@@ -4,11 +4,7 @@
  * This is free and unencumbered software release into the public domain.
  */
 
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using ImageProcessor.Services;
 using SixLabors.ImageSharp;
 
 // AUTHOR:      Bob Brown rbrown3
@@ -30,7 +26,6 @@ namespace ImageProcessor.Models
 
             Image = Image.Load("input/test.jpg");
 
-            process = new ProcessorService();
         }
 
         /// <summary>
@@ -44,10 +39,7 @@ namespace ImageProcessor.Models
 
             Image = picture;
 
-            process = new ProcessorService();
         }
-
-        private ProcessorService process;
 
         public string Id { get; set; } = System.Guid.NewGuid().ToString();
 
