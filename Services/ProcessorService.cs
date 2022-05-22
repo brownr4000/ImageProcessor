@@ -20,8 +20,6 @@ namespace ImageProcessor.Services
             picture = image;
 
             negative = picture.Image;
-
-            parseCommand();
         }
 
         private ImageModel picture;
@@ -33,7 +31,7 @@ namespace ImageProcessor.Services
             negative.SaveAsJpeg("output/" + picture.Id + ".jpg");
         }
 
-        private string parseCommand()
+        public ImageModel parseCommand()
         {
             foreach (string operation in picture.Command)
             {
@@ -46,29 +44,34 @@ namespace ImageProcessor.Services
                         break;
 
                     case "rotate":
+                        rotate(action[1]);
                         break;
 
                     case "convert":
-                        convertGrayscale();
+                        pickGrayscale(action[1]);
                         break;
 
                     case "saturate":
-                        //saturate(image.image);
+                        saturate();
                         break;
 
                     case "desatruate":
-                        //desaturate(image.image);
+                        desaturate();
                         break;
 
                     case "resize":
+                        pickResize(action[1], action[2]);
+                        break;
+
+                    case "thumb":
+                        generateThumb();
                         break;
 
                 }
             }
 
-            return null;
+            return picture;
         }
-
 
         /// <summary>
         /// The performFlip method flips the image horizontally or vertically
@@ -88,50 +91,21 @@ namespace ImageProcessor.Services
         }
 
         /// <summary>
-        /// The rotate method rotates the image based on a value in degrees
+        /// The rotate method rotates the image based on the passed in value
         /// </summary>
-        /// <param name="value">A floating point value</param>
+        /// <param name="value">The value to rotate</param>
         public void rotate(string value)
         {
-           
+            // Check if the string is a floating point number
             if (float.TryParse(value, out float number))
-            {
                 negative.Mutate(x => x.Rotate(number));
-            }
-            else if (value.ToLower() == "ccw")
-                negative.Mutate(x => x.Rotate(RotateMode.Rotate90));
-            else
-                
 
-            if (value.ToLower() == "ccw")
+            // Check if the lowercase of the string is ccw
+            else if (value.ToLower() == "ccw")
                 negative.Mutate(x => x.Rotate(RotateMode.Rotate270));
 
-            SaveOutput();
-        }
-
-        /// <summary>
-        /// The rotate method rotates the image based on a value in degrees
-        /// </summary>
-        /// <param name="value">A floating point value</param>
-        public void rotate(float value)
-        {
-            negative.Mutate(x => x.Rotate(value));
-
-            SaveOutput();
-        }
-
-        /// <summary>
-        /// The rotate method rotates the image based on a direction string
-        /// </summary>
-        /// <param name="dir">The direction to rotate, assuming CW or CCW</param>
-        public void rotate(string dir)
-        {
-            RotateMode tap = RotateMode.Rotate90;
-
-            if (dir.ToLower() == "ccw")
-                tap = RotateMode.Rotate270;
-
-            negative.Mutate(x => x.Rotate(tap));
+            else
+                negative.Mutate(x => x.Rotate(RotateMode.Rotate90));
 
             SaveOutput();
         }
@@ -157,6 +131,20 @@ namespace ImageProcessor.Services
             negative.Mutate(x => x.Grayscale(value));
 
             SaveOutput();
+        }
+
+        /// <summary>
+        /// The pickGrayscale determines which convertGrayscale method to call
+        /// based on the passed in value
+        /// </summary>
+        /// <param name="value">The passed in string value</param>
+        public void pickGrayscale(string value)
+        {
+            if (float.TryParse(value, out float number))
+                convertGrayscale(number);
+
+            else
+                convertGrayscale();
         }
 
         /// <summary>
@@ -208,6 +196,18 @@ namespace ImageProcessor.Services
             negative.Mutate(x => x.Resize((int)xValue, (int)yValue));
 
             SaveOutput();
+        }
+
+        public void pickResize(string first, string second)
+        {
+            if (int.TryParse(first, out int num))
+            {
+                if (int.TryParse(second, out int y))
+                    resize(num, y);
+
+                else
+                    resize(num);
+            }
         }
 
         /// <summary>
