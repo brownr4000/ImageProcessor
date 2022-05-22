@@ -20,6 +20,11 @@ namespace ImageProcessor.Models
     /// </summary>
     public class ImageModel
     {
+        public ImageModel()
+        {
+            Image = Image.Load("input/test_image.png");
+        }
+
         public ImageModel(List<string> commands)
         {
             Command = commands;
