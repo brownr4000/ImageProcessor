@@ -20,14 +20,14 @@ using System.Threading.Tasks;
 
 namespace ImageProcessor.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/[controller]/[action]")]
     [ApiController]
     public class RequestController : ControllerBase
     {
         private readonly ILogger<RequestController> _logger;
 
         // The OperatorModel image for the OperatorController object
-        private ImageModel image;
+        public ImageModel image = new ImageModel();
 
         private ProcessorService process;
 
@@ -38,9 +38,18 @@ namespace ImageProcessor.Controllers
 
         // GET: api/<ValuesController>
         [HttpGet]
-        public IEnumerable<string> Get()
+        [ActionName("GetId")]
+        public string GetId()
         {
-            return new string[] { "value1", "value2" };
+            return image.Id;
+        }
+
+        // GET: api/<ValuesController>
+        [HttpGet]
+        [ActionName("GetCommand")]
+        public List<string> GetCommand()
+        {
+            return image.Command;
         }
 
         // GET api/<ValuesController>/5
