@@ -20,6 +20,8 @@ namespace ImageProcessor.Services
             picture = image;
 
             negative = picture.Image;
+
+            parseCommand();
         }
 
         private ImageModel picture;
