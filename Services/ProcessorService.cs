@@ -15,7 +15,7 @@ namespace ImageProcessor.Services
 
         }
 
-        private OperatorModel picture;
+        private ImageModel picture;
 
         private Image image;
 

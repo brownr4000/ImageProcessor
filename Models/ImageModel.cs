@@ -22,14 +22,14 @@ namespace ImageProcessor.Models
     /// The OperatorModel class defines an OperatorModel object that stores and Image
     /// and a list of commands
     /// </summary>
-    public class OperatorModel
+    public class ImageModel
     {
         /// <summary>
         /// The OperatorModel constructor stores an image and a list of strings
         /// </summary>
         /// <param name="picture">An Image to perform operations on</param>
         /// <param name="process">A list of strings of operations to perform</param>
-        public OperatorModel(Image picture, List<string> commands)
+        public ImageModel(Image picture, List<string> commands)
         {
             command = commands;
 

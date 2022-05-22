@@ -27,7 +27,7 @@ namespace ImageProcessor.Controllers
         private readonly ILogger<RequestController> _logger;
 
         // The OperatorModel image for the OperatorController object
-        private OperatorModel image;
+        private ImageModel image;
 
         private ProcessorService process;
 
@@ -36,7 +36,7 @@ namespace ImageProcessor.Controllers
             _logger = logger;
         }
 
-        public RequestController(OperatorModel picture)
+        public RequestController(ImageModel picture)
         {
             process = new ProcessorService();
 
