@@ -63,9 +63,20 @@ namespace ImageProcessor.Controllers
         [HttpPost]
         public List<string> Post([FromBody] string value)
         {
-            List<string> requests = value.Split(':').ToList();
+            List<string> requests = value.Split("; ").ToList();
 
-            ImageModel image = new ImageModel(requests);
+            image.Command = requests;
+
+            return image.Command;
+        }
+
+        // PUT api/<ValuesController>
+        [HttpPut]
+        public List<string> PutCommand([FromBody] string value)
+        {
+            List<string> requests = value.Split("; ").ToList();
+
+            image.Command = requests;
 
             return image.Command;
         }
