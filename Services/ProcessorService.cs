@@ -91,6 +91,28 @@ namespace ImageProcessor.Services
         /// The rotate method rotates the image based on a value in degrees
         /// </summary>
         /// <param name="value">A floating point value</param>
+        public void rotate(string value)
+        {
+           
+            if (float.TryParse(value, out float number))
+            {
+                negative.Mutate(x => x.Rotate(number));
+            }
+            else if (value.ToLower() == "ccw")
+                negative.Mutate(x => x.Rotate(RotateMode.Rotate90));
+            else
+                
+
+            if (value.ToLower() == "ccw")
+                negative.Mutate(x => x.Rotate(RotateMode.Rotate270));
+
+            SaveOutput();
+        }
+
+        /// <summary>
+        /// The rotate method rotates the image based on a value in degrees
+        /// </summary>
+        /// <param name="value">A floating point value</param>
         public void rotate(float value)
         {
             negative.Mutate(x => x.Rotate(value));
