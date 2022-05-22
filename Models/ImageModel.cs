@@ -24,6 +24,15 @@ namespace ImageProcessor.Models
     /// </summary>
     public class ImageModel
     {
+        public ImageModel(List<string> commands)
+        {
+            Command = commands;
+
+            Image = Image.Load("input/test.jpg");
+
+            process = new ProcessorService();
+        }
+
         /// <summary>
         /// The OperatorModel constructor stores an image and a list of strings
         /// </summary>
