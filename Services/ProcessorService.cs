@@ -5,6 +5,8 @@ using System.Threading.Tasks;
 using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.Processing;
 using ImageProcessor.Models;
+using ImageMagick;
+
 
 namespace ImageProcessor.Services
 {
@@ -20,10 +22,6 @@ namespace ImageProcessor.Services
             picture = image;
 
             negative = picture.Image;
-
-            //SaveOutput();
-
-            //convertGrayscale();
 
             parseCommand();
 
@@ -87,12 +85,14 @@ namespace ImageProcessor.Services
         /// <param name="dir">The direction to flip the image</param>
         public void performFlip(string dir)
         {
-            FlipMode direction = FlipMode.Vertical;
+            //FlipMode direction;
 
-            if (dir.ToLower().StartsWith("h"))
-                direction = FlipMode.Horizontal;
+            //if (dir.ToLower().StartsWith("h"))
+            //    direction = FlipMode.Horizontal;
+            //else
+            //    direction = FlipMode.Vertical;
 
-            negative.Mutate(x => x.Flip(direction));
+            negative.Mutate(x => x.Flip(FlipMode.Horizontal));
 
             SaveOutput();
         }
@@ -159,7 +159,7 @@ namespace ImageProcessor.Services
         /// </summary>
         public void saturate()
         {
-            negative.Mutate(x => x.Saturate(0.5f));
+            negative.Mutate(x => x.Saturate(1.5f));
 
             SaveOutput();
         }
@@ -169,7 +169,7 @@ namespace ImageProcessor.Services
         /// </summary>
         public void desaturate()
         {
-            negative.Mutate(x => x.Saturate(0));
+            negative.Mutate(x => x.Saturate(0.5f));
 
             SaveOutput();
         }
@@ -207,10 +207,10 @@ namespace ImageProcessor.Services
 
         public void pickResize(string first, string second)
         {
-            if (int.TryParse(first, out int num))
+            if (float.TryParse(first, out float num))
             {
                 if (int.TryParse(second, out int y))
-                    resize(num, y);
+                    resize((int) num, y);
 
                 else
                     resize(num);
