@@ -41,6 +41,12 @@ namespace ImageProcessor.Controllers
         [ActionName("GetId")]
         public string GetId()
         {
+            image.Command = new List<string> { "Convert" };
+
+            process = new ProcessorService(image);
+
+            process.parseCommand();
+
             return image.Id;
         }
 
@@ -50,13 +56,6 @@ namespace ImageProcessor.Controllers
         public List<string> GetCommand()
         {
             return image.Command;
-        }
-
-        // GET api/<ValuesController>/5
-        [HttpGet("{id}")]
-        public string Get(int id)
-        {
-            return "value";
         }
 
         // POST api/<ValuesController>
