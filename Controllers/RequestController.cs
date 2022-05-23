@@ -59,7 +59,7 @@ namespace ImageProcessor.Controllers
 
             process.parseCommand();
 
-            return "complete";
+            return "output/" + image.Id + ".png";
         }
 
     }
