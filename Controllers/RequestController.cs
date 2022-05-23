@@ -38,10 +38,10 @@ namespace ImageProcessor.Controllers
 
         // GET: api/<ValuesController>
         [HttpGet]
-        [ActionName("GetId")]
-        public string GetId()
+        [ActionName("Get")]
+        public string Get()
         {
-            image.Command = new List<string> { "Convert" };
+            image.Command = new List<string> { "convert" };
 
             process = new ProcessorService(image);
 
