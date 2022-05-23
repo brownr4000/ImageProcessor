@@ -8,11 +8,8 @@ using ImageProcessor.Models;
 using ImageProcessor.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using SixLabors.ImageSharp;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 // AUTHOR:      Bob Brown rbrown3
 // PROGRAM:     ImageProcessor API
@@ -41,7 +38,7 @@ namespace ImageProcessor.Controllers
         [ActionName("Get")]
         public string Get()
         {
-            image.Command = new List<string> { "convert" };
+            image.Command = new List<string> { "rotate 180" };
 
             process = new ProcessorService(image);
 
@@ -50,34 +47,19 @@ namespace ImageProcessor.Controllers
             return image.Id;
         }
 
-        // GET: api/<ValuesController>
-        [HttpGet]
-        [ActionName("GetCommand")]
-        public List<string> GetCommand()
-        {
-            return image.Command;
-        }
-
         // POST api/<ValuesController>
         [HttpPost]
-        public List<string> Post([FromBody] string value)
+        public string Post([FromBody] string value)
         {
             List<string> requests = value.Split("; ").ToList();
 
             image.Command = requests;
 
-            return image.Command;
-        }
+            process = new ProcessorService(image);
 
-        // PUT api/<ValuesController>
-        [HttpPut]
-        public List<string> PutCommand([FromBody] string value)
-        {
-            List<string> requests = value.Split("; ").ToList();
+            process.parseCommand();
 
-            image.Command = requests;
-
-            return image.Command;
+            return "complete";
         }
 
     }
