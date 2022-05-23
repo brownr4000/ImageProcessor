@@ -41,7 +41,7 @@ namespace ImageProcessor.Services
             negative.SaveAsPng("output/" + picture.Id + ".png");
         }
 
-        public ImageModel parseCommand()
+        public void parseCommand()
         {
             foreach (string operation in picture.Command)
             {
@@ -79,8 +79,6 @@ namespace ImageProcessor.Services
 
                 }
             }
-
-            return picture;
         }
 
         /// <summary>
