@@ -20,6 +20,9 @@ namespace ImageProcessor.Services
             picture = image;
 
             negative = picture.Image;
+
+            SaveOutput();
+
         }
 
         private ImageModel picture;
@@ -28,7 +31,7 @@ namespace ImageProcessor.Services
 
         private void SaveOutput()
         {
-            negative.SaveAsJpeg("output/" + picture.Id + ".jpg");
+            negative.SaveAsPng("output/" + picture.Id + ".png");
         }
 
         public ImageModel parseCommand()
