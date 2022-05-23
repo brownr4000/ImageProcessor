@@ -5,7 +5,6 @@ using System.Threading.Tasks;
 using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.Processing;
 using ImageProcessor.Models;
-using ImageMagick;
 
 
 namespace ImageProcessor.Services
@@ -85,14 +84,14 @@ namespace ImageProcessor.Services
         /// <param name="dir">The direction to flip the image</param>
         public void performFlip(string dir)
         {
-            //FlipMode direction;
+            FlipMode direction;
 
-            //if (dir.ToLower().StartsWith("h"))
-            //    direction = FlipMode.Horizontal;
-            //else
-            //    direction = FlipMode.Vertical;
+            if (dir.ToLower().StartsWith("h"))
+                direction = FlipMode.Horizontal;
+            else
+                direction = FlipMode.Vertical;
 
-            negative.Mutate(x => x.Flip(FlipMode.Horizontal));
+            negative.Mutate(x => x.Flip(direction));
 
             SaveOutput();
         }
@@ -105,7 +104,9 @@ namespace ImageProcessor.Services
         {
             // Check if the string is a floating point number
             if (float.TryParse(value, out float number))
+            {
                 negative.Mutate(x => x.Rotate(number));
+            }
 
             // Check if the lowercase of the string is ccw
             else if (value.ToLower() == "ccw")
@@ -113,6 +114,7 @@ namespace ImageProcessor.Services
 
             else
                 negative.Mutate(x => x.Rotate(RotateMode.Rotate90));
+
 
             SaveOutput();
         }
