@@ -21,7 +21,11 @@ namespace ImageProcessor.Services
 
             negative = picture.Image;
 
-            SaveOutput();
+            //SaveOutput();
+
+            //convertGrayscale();
+
+            parseCommand();
 
         }
 
