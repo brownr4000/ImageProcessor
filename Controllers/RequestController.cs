@@ -7,7 +7,6 @@
 using ImageProcessor.Models;
 using ImageProcessor.Services;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -17,48 +16,62 @@ using System.Linq;
 
 namespace ImageProcessor.Controllers
 {
+    /// <summary>
+    /// The RequestController class provides the api/controller functionality
+    /// for the ImageProcessor application
+    /// </summary>
     [Route("api/[controller]/[action]")]
     [ApiController]
     public class RequestController : ControllerBase
     {
-        private readonly ILogger<RequestController> _logger;
-
-        // The OperatorModel image for the OperatorController object
+        // The ImageModel image object stores the image and commands to be processed
         public ImageModel image = new ImageModel();
 
+        // The ProcessorService process is the object to handle the image processing
         private ProcessorService process;
 
-        public RequestController(ILogger<RequestController> logger)
+        /// <summary>
+        /// The RequestController constructor
+        /// </summary>
+        public RequestController()
         {
-            _logger = logger;
+
         }
 
+        /// <summary>
+        /// The Get method verifies the server is operating by 
+        /// returning a message to the client
+        /// </summary>
+        /// <returns>A string message to the client</returns>
         // GET: api/<ValuesController>
         [HttpGet]
         [ActionName("Get")]
         public string Get()
         {
-            image.Command = new List<string> { "rotate 180" };
-
-            process = new ProcessorService(image);
-
-            //process.parseCommand();
-
-            return image.Id;
+            return "ready for images";
         }
 
+        /// <summary>
+        /// The Post method builds the command list from the body of the request
+        /// applies it to the ImageModel object, and sends it to the ProcessorService.
+        /// </summary>
+        /// <param name="value">The string of commands entered by the client</param>
+        /// <returns>The string of the location of the file on the server</returns>
         // POST api/<ValuesController>
         [HttpPost]
+        [ActionName("Post")]
         public string Post([FromBody] string value)
         {
+            // Build command list from string value
             List<string> requests = value.Split("; ").ToList();
 
+            // Set object Command to created list
             image.Command = requests;
 
+            // Activate ProcessorService
             process = new ProcessorService(image);
 
-            //process.parseCommand();
-
+            // Return string of file location
             return "output/" + image.Id + ".png";
         }
 
