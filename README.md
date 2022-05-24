@@ -18,7 +18,7 @@ Here are the available commands with their string input:
 - Saturate = *"saturate"*
 - Desaturate = *"dull"*
 - Resize (x, y) = *"resize XX YY"* where XX is the horizontal value, and YY is the vertical value
-- Resize percentage = *"resize %"* where % is the percentage value
+- Resize percentage = *"resize %" end* where % is the percentage value
 - Generate a thumbnail = *"thumb"*
 
 Commands entered via POST must be separated by a ";" in the entry body in order to be parsed correctly.
