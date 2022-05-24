@@ -17,10 +17,10 @@ Here are the available commands with their string input:
 - Convert to a user-specified grayscale = *"convert ##"* where ## is a floating point number
 - Saturate = *"saturate"*
 - Desaturate = *"desaturate"*
-- Resize (x, y) = "resize XX YY" where XX is the horizontal value, and YY is the vertical value
+- Resize (x, y) = *"resize XX YY"* where XX is the horizontal value, and YY is the vertical value
 - Resize percentage = *"resize %"* where % is the percentage value
 - Generate a thumbnail = *"thumb"*
 
 Commands entered via POST must be separated by a ";" in the entry body in order to be parsed correctly.
 
-**Example Command Entry:** "desaturate, rotate 15, thumb"
+**Example Command Entry:** *"desaturate, rotate 15, thumb"*
