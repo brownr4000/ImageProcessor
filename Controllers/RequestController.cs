@@ -42,7 +42,7 @@ namespace ImageProcessor.Controllers
 
             process = new ProcessorService(image);
 
-            process.parseCommand();
+            //process.parseCommand();
 
             return image.Id;
         }
@@ -57,7 +57,7 @@ namespace ImageProcessor.Controllers
 
             process = new ProcessorService(image);
 
-            process.parseCommand();
+            //process.parseCommand();
 
             return "output/" + image.Id + ".png";
         }

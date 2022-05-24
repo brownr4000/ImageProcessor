@@ -32,16 +32,16 @@ namespace ImageProcessor.Services
 
         }
 
-        private ImageModel picture;
+        public ImageModel picture;
 
-        private Image negative;
+        public Image negative;
 
         private void SaveOutput()
         {
             negative.SaveAsPng("output/" + picture.Id + ".png");
         }
 
-        public void parseCommand()
+        private void parseCommand()
         {
             foreach (string operation in picture.Command)
             {
@@ -86,7 +86,7 @@ namespace ImageProcessor.Services
         /// based on the string directon
         /// </summary>
         /// <param name="dir">The direction to flip the image</param>
-        public void performFlip(string dir)
+        private void performFlip(string dir)
         {
             FlipMode direction;
 
@@ -104,7 +104,7 @@ namespace ImageProcessor.Services
         /// The rotate method rotates the image based on the passed in value
         /// </summary>
         /// <param name="value">The value to rotate</param>
-        public void rotate(string value)
+        private void rotate(string value)
         {
             // Check if the string is a floating point number
             if (float.TryParse(value, out float number))
@@ -126,7 +126,7 @@ namespace ImageProcessor.Services
         /// <summary>
         /// The convertGrayscale method converts the image to grayscale
         /// </summary>
-        public void convertGrayscale()
+        private void convertGrayscale()
         {
             negative.Mutate(x => x.Grayscale());
 
@@ -139,7 +139,7 @@ namespace ImageProcessor.Services
         /// </summary>
         /// <param name="value">The value of the grayscale to apply</param>
         /// <returns>The mutated image</returns>
-        public void convertGrayscale(float value)
+        private void convertGrayscale(float value)
         {
             negative.Mutate(x => x.Grayscale(value));
 
@@ -151,7 +151,7 @@ namespace ImageProcessor.Services
         /// based on the passed in value
         /// </summary>
         /// <param name="value">The passed in string value</param>
-        public void pickGrayscale(string value)
+        private void pickGrayscale(string value)
         {
             if (float.TryParse(value, out float number))
                 convertGrayscale(number);
@@ -163,7 +163,7 @@ namespace ImageProcessor.Services
         /// <summary>
         /// The saturate method applies saturation to the image
         /// </summary>
-        public void saturate()
+        private void saturate()
         {
             negative.Mutate(x => x.Saturate(1.5f));
 
@@ -173,7 +173,7 @@ namespace ImageProcessor.Services
         /// <summary>
         /// The desaturate method removes saturation from the image
         /// </summary>
-        public void desaturate()
+        private void desaturate()
         {
             negative.Mutate(x => x.Saturate(0.5f));
 
@@ -186,7 +186,7 @@ namespace ImageProcessor.Services
         /// </summary>
         /// <param name="x">The width value to change</param>
         /// <param name="y">The height value to change</param>
-        public void resize(int x, int y)
+        private void resize(int x, int y)
         {
             int xValue = negative.Width + x;
             int yValue = negative.Height + y;
@@ -201,7 +201,7 @@ namespace ImageProcessor.Services
         /// given percent value
         /// </summary>
         /// <param name="percent"></param>
-        public void resize(float percent)
+        private void resize(float percent)
         {
             var xValue = negative.Width * percent;
             var yValue = negative.Height * percent;
@@ -211,7 +211,7 @@ namespace ImageProcessor.Services
             SaveOutput();
         }
 
-        public void pickResize(string first, string second)
+        private void pickResize(string first, string second)
         {
             if (float.TryParse(first, out float num))
             {
@@ -226,7 +226,7 @@ namespace ImageProcessor.Services
         /// <summary>
         /// The generateThumb method generates a low quality thumbnail for the image
         /// </summary>
-        public void generateThumb()
+        private void generateThumb()
         {
             int xValue = negative.Width  / 2;
             var yValue = negative.Height / 2;
