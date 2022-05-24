@@ -13,10 +13,14 @@ Here are the available commands with their string input:
 - Rotate +/- n degrees = *"rotate ###"* where ### is a number in degrees
 - Rotate left = *"rotate ccw"*
 - Rotate right = *"rotate cw"*
-- Convert to fixed grayscale = *"convert"*
+- Convert to fixed grayscale = *"convert end"*
 - Convert to a user-specified grayscale = *"convert ##"* where ## is a floating point number
 - Saturate = *"saturate"*
 - Desaturate = *"desaturate"*
-> Resize (x, y) = "resize XX YY" where XX is the horizontal value, and YY is the vertical value
-> Resize percentage = "resize %" where % is the percentage value
-> Generate a thumbnail = "thumb"
+- Resize (x, y) = "resize XX YY" where XX is the horizontal value, and YY is the vertical value
+- Resize percentage = *"resize %"* where % is the percentage value
+- Generate a thumbnail = *"thumb"*
+
+Commands entered via POST must be separated by a ";" in the entry body in order to be parsed correctly.
+
+**Example Command Entry:** "desaturate, rotate 15, thumb"
