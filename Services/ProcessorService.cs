@@ -15,68 +15,96 @@ using ImageProcessor.Models;
 
 namespace ImageProcessor.Services
 {
+    /// <summary>
+    /// The ProcessorService performs transformations and operations on an ImageModel
+    /// object as part of the ImageProcessor application
+    /// </summary>
     public class ProcessorService
     {
-        public ProcessorService()
-        {
 
-        }
-
+        /// <summary>
+        /// The ProcessorService constructor takes in an ImageModel
+        /// and starts processing its stored commands
+        /// </summary>
+        /// <param name="image">The ImageModel object to process</param>
         public ProcessorService(ImageModel image)
         {
+            // Set picture to passed in image
             picture = image;
 
             negative = picture.Image;
 
+            // Call parseCommand method
             parseCommand();
-
         }
 
+        // ImageModel object to store ImageModel
         public ImageModel picture;
 
+        // Image object to process image operations
         public Image negative;
 
+        /// <summary>
+        /// The SaveOutput method saves the output of the image manipulation
+        /// 
+        /// This could be modified to handle differnet filetypes
+        /// </summary>
         private void SaveOutput()
         {
+            // Call the SaveAsPng method of ImageSharp API
             negative.SaveAsPng("output/" + picture.Id + ".png");
         }
 
+        /// <summary>
+        /// The parseCommand method reads the Command list of the stored ImageModel
+        /// and determines what operations to perform until the entire list has
+        /// been traversed
+        /// </summary>
         private void parseCommand()
         {
+            // Loop through all elements of the List
             foreach (string operation in picture.Command)
             {
+                // Separate strings based on empty spaces
                 var action = operation.Split(" ");
 
+                // Check which string is first in action
                 switch (action.FirstOrDefault())
                 {
+                    // Flip operation
                     case "flip":
                         performFlip(action[1]);
                         break;
 
+                    // Rotate operation
                     case "rotate":
                         rotate(action[1]);
                         break;
 
+                    // Convert to Grayscale operation
                     case "convert":
                         pickGrayscale(action[1]);
                         break;
 
+                    // Saturate operation
                     case "saturate":
                         saturate();
                         break;
 
-                    case "desatruate":
+                    // Desaturate operation
+                    case "dull":
                         desaturate();
                         break;
 
+                    // Resize operation
                     case "resize":
                         pickResize(action[1], action[2]);
                         break;
 
+                    // Generate thumbnail opeation
                     case "thumb":
                         generateThumb();
                         break;
-
                 }
             }
         }
@@ -88,15 +116,20 @@ namespace ImageProcessor.Services
         /// <param name="dir">The direction to flip the image</param>
         private void performFlip(string dir)
         {
+            // FlipMode enum variable
             FlipMode direction;
 
+            // Check the first character of the passed in string
+            // to determine flip mode
             if (dir.ToLower().StartsWith("h"))
                 direction = FlipMode.Horizontal;
             else
                 direction = FlipMode.Vertical;
 
+            // Perform flip operation
             negative.Mutate(x => x.Flip(direction));
 
+            // Save image
             SaveOutput();
         }
 
@@ -113,13 +146,14 @@ namespace ImageProcessor.Services
             }
 
             // Check if the lowercase of the string is ccw
+            // Then perform rotate operation
             else if (value.ToLower() == "ccw")
                 negative.Mutate(x => x.Rotate(RotateMode.Rotate270));
 
             else
                 negative.Mutate(x => x.Rotate(RotateMode.Rotate90));
 
-
+            // Save image
             SaveOutput();
         }
 
@@ -128,8 +162,10 @@ namespace ImageProcessor.Services
         /// </summary>
         private void convertGrayscale()
         {
+            // Perform conversion to Grayscale
             negative.Mutate(x => x.Grayscale());
 
+            // Save image
             SaveOutput();
         }
 
@@ -141,8 +177,10 @@ namespace ImageProcessor.Services
         /// <returns>The mutated image</returns>
         private void convertGrayscale(float value)
         {
+            // Perform conversion to Grayscale with the passed in value
             negative.Mutate(x => x.Grayscale(value));
 
+            // Save image
             SaveOutput();
         }
 
@@ -153,6 +191,7 @@ namespace ImageProcessor.Services
         /// <param name="value">The passed in string value</param>
         private void pickGrayscale(string value)
         {
+            // Check if the passed in value is a floating point number
             if (float.TryParse(value, out float number))
                 convertGrayscale(number);
 
@@ -165,8 +204,10 @@ namespace ImageProcessor.Services
         /// </summary>
         private void saturate()
         {
+            // Perform saturate operation
             negative.Mutate(x => x.Saturate(1.5f));
 
+            // Save image
             SaveOutput();
         }
 
@@ -175,8 +216,11 @@ namespace ImageProcessor.Services
         /// </summary>
         private void desaturate()
         {
+            //  Perform saturate operation with lower value
+            // Effect dulls image by 50%
             negative.Mutate(x => x.Saturate(0.5f));
 
+            // Save image
             SaveOutput();
         }
 
@@ -188,11 +232,15 @@ namespace ImageProcessor.Services
         /// <param name="y">The height value to change</param>
         private void resize(int x, int y)
         {
+            // Calculate x and y values to resize image
+            // Add passed in values to the height and width
             int xValue = negative.Width + x;
             int yValue = negative.Height + y;
 
+            // Perform resize operation
             negative.Mutate(x => x.Resize(xValue, yValue));
 
+            // Save image
             SaveOutput();
         }
 
@@ -203,18 +251,30 @@ namespace ImageProcessor.Services
         /// <param name="percent"></param>
         private void resize(float percent)
         {
+            // Calculate x and y values to resize image
+            // Multiply height and width by passed in value
             var xValue = negative.Width * percent;
             var yValue = negative.Height * percent;
 
+            // Perform resize operation
             negative.Mutate(x => x.Resize((int)xValue, (int)yValue));
 
+            // Save image
             SaveOutput();
         }
 
+        /// <summary>
+        /// The pickRezise method determines which resize method to call
+        /// based on the passed in values
+        /// </summary>
+        /// <param name="first">The first passed in string</param>
+        /// <param name="second">The second passed in string</param>
         private void pickResize(string first, string second)
         {
+            // Check if the passed in value is a floating point number
             if (float.TryParse(first, out float num))
             {
+                // Check if the second passed in value is an integer
                 if (int.TryParse(second, out int y))
                     resize((int) num, y);
 
@@ -225,14 +285,18 @@ namespace ImageProcessor.Services
 
         /// <summary>
         /// The generateThumb method generates a low quality thumbnail for the image
+        /// It utilizes the resize functionality of the image library
         /// </summary>
         private void generateThumb()
         {
+            // Reduce height and width values
             int xValue = negative.Width  / 2;
             var yValue = negative.Height / 2;
 
+            // Perform resize operation
             negative.Mutate(x => x.Resize(xValue, yValue, KnownResamplers.NearestNeighbor));
 
+            // Save image
             SaveOutput();
         }
     }
